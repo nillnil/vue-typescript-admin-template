@@ -262,7 +262,7 @@ export default class extends Vue {
 </style>
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: 44px;
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
@@ -273,15 +273,15 @@ export default class extends Vue {
       display: inline-block;
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 26px;
+      height: 30px;
+      line-height: 30px;
       border: 1px solid #d8dce5;
       color: #495060;
       background: #fff;
       padding: 0 8px;
-      font-size: 12px;
+      font-size: 13px;
       margin-left: 5px;
-      margin-top: 4px;
+      margin-top: 6px;
 
       &:first-of-type {
         margin-left: 15px;
@@ -292,9 +292,9 @@ export default class extends Vue {
       }
 
       &.active {
-        background-color: #42b983;
+        background-color: rgb(24, 144, 255);
         color: #fff;
-        border-color: #42b983;
+        border-color: rgb(24, 144, 255);
 
         &::before {
           content: '';

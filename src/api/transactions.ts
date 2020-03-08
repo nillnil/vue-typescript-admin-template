@@ -1,7 +1,7 @@
-import request from '@/utils/request'
+import http from '@/utils/http'
 
 export const getTransactions = (params: any) =>
-  request({
+  http({
     url: '/transactions',
     method: 'get',
     params

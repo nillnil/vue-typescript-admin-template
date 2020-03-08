@@ -1,54 +1,39 @@
-import request from '@/utils/request'
+import http from '@/utils/http'
+
+const USERS_API = {
+  LOGIN: '/users/login',
+  LOGOUT: '/users/logout',
+  INFO: '/users/info'
+}
+
+export const login = (data: any) => http.post(USERS_API.LOGIN, data)
+
+export const logout = () => http.post(USERS_API.LOGOUT)
+
+export const getUserInfo = (data: any) => http.post(USERS_API.INFO, data)
 
 export const getUsers = (params: any) =>
-  request({
+  http({
     url: '/users',
     method: 'get',
     params
   })
 
-export const getUserInfo = (data: any) =>
-  request({
-    url: '/users/info',
-    method: 'post',
-    data
-  })
-
 export const getUserByName = (username: string) =>
-  request({
+  http({
     url: `/users/${username}`,
     method: 'get'
   })
 
 export const updateUser = (username: string, data: any) =>
-  request({
+  http({
     url: `/users/${username}`,
     method: 'put',
     data
   })
 
 export const deleteUser = (username: string) =>
-  request({
+  http({
     url: `/users/${username}`,
     method: 'delete'
-  })
-
-export const login = (data: any) =>
-  request({
-    url: '/users/login',
-    method: 'post',
-    data
-  })
-
-export const logout = () =>
-  request({
-    url: '/users/logout',
-    method: 'post'
-  })
-
-export const register = (data: any) =>
-  request({
-    url: '/users/register',
-    method: 'post',
-    data
   })

@@ -23,222 +23,70 @@
   </a>
 </p>
 
-English | [简体中文](./README-zh.md)
+## fock [vue-typescript-admin-template](https://github.com/armour.com/vue-typescript-admin-template)
 
-## Overview
+## 前序准备
 
-[vue-typescript-admin-template](http://armour.github.io/vue-typescript-admin-template) is a production-ready front-end solution for admin interfaces based on [vue](https://github.com/vuejs/vue), [typescript](https://www.typescriptlang.org/) and UI Toolkit [element-ui](https://github.com/ElemeFE/element). The original Javascript version code [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin/) was written by [PanJiaChen](https://github.com/PanJiaChen), many thanks to him for the awesome open source project! :)
+你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。本项目技术栈基于 [typescript](https://www.typescriptlang.org/)、[vue](https://cn.vuejs.org/index.html)、[vuex](https://vuex.vuejs.org/zh-cn/)、[vue-router](https://router.vuejs.org/zh-cn/) 、[vue-cli](https://github.com/vuejs/vue-cli) 、[axios](https://github.com/axios/axios) 和 [element-ui](https://github.com/ElemeFE/element)，所有的请求数据都使用[faker.js](https://github.com/Marak/Faker.js)进行模拟，提前了解和学习这些知识会对使用本项目有很大的帮助。
 
-If you want to get started with a minimal template code instead of integration solution, you can take a look at the [minimal](https://github.com/Armour/vue-typescript-admin-template/tree/minimal) branch.
+## 如何设置以及启动项目
 
-## Documentation
-
-[Docs](https://armour.github.io/vue-typescript-admin-docs)
-
-## Live demo
-
-[Demo](https://armour.github.io/vue-typescript-admin-template)
-
-## Screenshots
-
-![dashboard](./demo/dashboard.png)
-
-## Related Projects
-
-[Armour/vue-typescript-admin-mock-server](https://github.com/armour/vue-typescript-admin-mock-server) (mock server for this project)
-
-[Armour/vue-typescript-admin-docs](https://github.com/armour/vue-typescript-admin-docs) (documentation source for this project)
-
-Javascript version:
-
-[PanJiaChen/vue-admin-template](https://github.com/PanJiaChen/vue-admin-template) (a vue2.0 minimal admin template) 
-
-[PanJiaChen/vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) (full features supported vue admin) 
-
-[PanJiaChen/electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin) (a vue electron admin project)
-
-## Features
-
-```txt
-- Login / Logout
-
-- Permission Authentication
-  - Page permission
-  - Directive permission
-  - Permission configuration page
-  - Two-step login
-
-- Multi-environment build
-  - Dev / Stage / Prod
-
-- Global Features
-  - I18n
-  - Dynamic themes
-  - Dynamic sidebar (supports multi-level routing)
-  - Dynamic breadcrumb
-  - Tags-view (supports right-click operation)
-  - Clipboard
-  - Svg icons
-  - Search
-  - Screenfull
-  - Settings
-  - Mock data / Mock server
-  - PWA support
-
-- Components
-  - Editors
-    - Rich Text Editor
-    - Markdown Editor
-    - JSON Editor
-  - Avatar Upload
-  - Back To Top
-  - CountTo
-  - Dropzone
-  - Draggable Dialog
-  - Draggable Kanban
-  - Draggable List
-  - Draggable Select
-  - ECharts
-  - Mixin
-  - SplitPane
-  - Sticky
-
-- Table
-  - Dynamic Table
-  - Draggable Table
-  - Inline Edit Table
-  - Complex Table
-
-- Excel
-  - Export Excel
-  - Upload Excel
-  - Excel Visualization
-
-- Zip
-  - Export zip
-
-- PDF
-  - Download pdf
-
-- Dashboard
-- Guide Page
-- Advanced Example Page
-- Error Log
-- Error Page
-  - 401
-  - 404
-```
-
-## Preparation
-
-You need to install [node](http://nodejs.org/) and [git](https://git-scm.com/) locally. The project is based on [typescript](https://www.typescriptlang.org/), [vue](https://vuejs.org/index.html), [vuex](https://vuex.vuejs.org/), [vue-router](https://router.vuejs.org/), [vue-cli](https://github.com/vuejs/vue-cli) , [axios](https://github.com/axios/axios) and [element-ui](https://github.com/ElemeFE/element), all request data is simulated using [faker.js](https://github.com/Marak/Faker.js).
-Understanding and learning these knowledge in advance will greatly help you on using this project.
-
-## Project Structure
+### 安装yarn
 
 ```bash
-├── mock/                      # mock server & mock data
-├── public                     # public static assets (directly copied)
-│   │── favicon.ico            # favicon
-│   │── manifest.json          # PWA config file
-│   └── index.html             # index.html template
-├── src                        # main source code
-│   ├── api                    # api service
-│   ├── assets                 # module assets like fonts, images (processed by webpack)
-│   ├── components             # global components
-│   ├── directives             # global directives
-│   ├── filters                # global filter
-│   ├── icons                  # svg icons
-│   ├── lang                   # i18n language
-│   ├── layout                 # global layout
-│   ├── pwa                    # PWA service worker related files
-│   ├── router                 # router
-│   ├── store                  # store
-│   ├── styles                 # global css
-│   ├── utils                  # global utils
-│   ├── views                  # views
-│   ├── App.vue                # main app component
-│   ├── main.ts                # app entry file
-│   ├── permission.ts          # permission authentication
-│   ├── settings.ts            # setting file
-│   └── shims.d.ts             # type definition shims
-├── tests/                     # tests
-├── .circleci/                 # automated CI configuration
-├── .browserslistrc            # browserslist config file (to support Autoprefixer)
-├── .editorconfig              # editor code format consistency config
-├── .env.xxx                   # env variable configuration
-├── .eslintrc.js               # eslint config
-├── babel.config.js            # babel config
-├── cypress.json               # e2e test config
-├── jest.config.js             # jest unit test config
-├── package.json               # package.json
-├── postcss.config.js          # postcss config
-├── tsconfig.json              # typescript config
-└── vue.config.js              # vue-cli config
+npm install -g yarn
 ```
 
-## Project setup
-
-With [yarn](https://yarnpkg.com/lang/en/) or [npm](https://www.npmjs.com/get-npm)
-
-#### Install dependencies
+### 安装依赖
 
 ```bash
 yarn install
 ```
 
-#### Compiles and hot-reloads for development
+### 启动本地开发环境（自带热启动）
 
 ```bash
-yarn run serve
+yarn serve
 ```
 
-#### Compiles and minifies for production
+### 构建生产环境 (自带压缩)
 
 ```bash
-yarn run build:prod
+yarn build:prod
 ```
 
-#### Lints and fixes files
+### 代码格式检查以及自动修复
 
 ```bash
-yarn run lint
+yarn lint
 ```
 
-#### Run your unit tests
+### 运行单元测试
 
 ```bash
-yarn run test:unit
+yarn test:unit
 ```
 
-#### Run your end-to-end tests
+### 运行端对端测试
 
 ```bash
-yarn run test:e2e
+yarn test:e2e
 ```
 
-#### Generate all svg components
+### 自动生成 svg 组件
 
 ```bash
 yarn run svg
 ```
 
-#### Customize Vue configuration
+### 自定义 Vue 配置
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+请看 [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Browsers support
+## 浏览器支持
 
 Modern browsers and Internet Explorer 10+.
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | --------- | --------- | --------- | --------- |
 | IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/Armour/vue-typescript-admin-template/blob/master/.github/CONTRIBUTING.md)
-
-## License
-
-[MIT License](https://github.com/Armour/vue-typescript-admin-template/blob/master/LICENSE)

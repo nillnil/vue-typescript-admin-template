@@ -2,6 +2,7 @@
   <div
     class="sidebar-logo-container"
     :class="{'collapse': collapse}"
+    :style="{'background': logoBgColor}"
   >
     <transition name="sidebarLogoFade">
       <router-link
@@ -36,6 +37,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import settings from '@/settings'
+import variables from '@/styles/_variables.scss'
 
 @Component({
   name: 'SidebarLogo'
@@ -44,6 +46,10 @@ export default class extends Vue {
   @Prop({ required: true }) private collapse!: boolean
 
   private title = settings.title
+
+  get logoBgColor() {
+    return variables.menuBg || '#2b2f3a'
+  }
 }
 </script>
 

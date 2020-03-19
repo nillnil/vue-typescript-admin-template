@@ -7,8 +7,10 @@ const devServerPort = 9527 // TODO: get this variable from setting.ts
 const mockServerPort = 9528 // TODO: get this variable from setting.ts
 const name = 'Vue Typescript Admin' // TODO: get this variable from setting.ts
 
+const mode = process.env.VUE_APP_MODE
+
 module.exports = {
-  publicPath: '/',
+  publicPath: mode === 'ghpages' ? './' : '/',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {

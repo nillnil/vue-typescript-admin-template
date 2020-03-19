@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Vue from 'vue'
 import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 
@@ -25,42 +26,34 @@ service.interceptors.request.use(
 // Response interceptors
 service.interceptors.response.use(
   (response) => {
-    // Some example codes here:
-    // code == 200: success
-    // code == 50001: invalid access token
-    // code == 50002: already login in other place
-    // code == 50003: access token expired
-    // code == 50004: invalid user (user not exist)
-    // code == 50005: username or password is incorrect
-    // You can change this part for your own usage.
     const res = response.data
-    if (res.code !== 200) {
-      Message({
-        message: res.msg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        MessageBox.confirm(
-          '你已被登出，可以取消继续留在该页面，或者重新登录',
-          '确定登出', {
-            confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
+    if (res.code !== 200 && !res.success) {
+      if (res.code === 408) {
+        // 登录超时
+        MessageBox.alert('登录已失效，请重新登录', '提示', {
+          callback: () => {
+            Vue.prototype.$router.push('/login')
           }
-        ).then(() => {
-          UserModule.ResetToken()
-          location.reload()
+        })
+      } else if (res.code === 401 || res.code === 403) {
+        // 没有权限
+        Message.error({
+          message: res.msg || '没有权限',
+          duration: 5 * 1000
+        })
+      } else {
+        Message.error({
+          message: res.msg || '',
+          duration: 5 * 1000
         })
       }
-      return Promise.reject(new Error(res.msg || 'Error'))
+      return Promise.reject(res)
     } else {
       return response.data
     }
-  }, (error) => {
-    Message({
-      message: error.msg,
-      type: 'error',
+  }, (error: any) => {
+    Message.error({
+      message: error.msg || error || '',
       duration: 5 * 1000
     })
     return Promise.reject(error)

@@ -27,7 +27,7 @@
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
+              首页
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item>
@@ -48,7 +48,7 @@
             @click.native="logout"
           >
             <span style="display:block;">
-              {{ $t('navbar.logOut') }}
+              退出登录
             </span>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -57,7 +57,7 @@
     <el-dialog
       title="修改密码"
       :visible.sync="passwordFormVisible"
-      width="500px"
+      width="600px"
     >
       <el-form
         ref="form"
@@ -68,31 +68,31 @@
       >
         <el-form-item
           label="原密码"
-          prop="oldpass"
+          prop="oldPwd"
         >
           <el-input
             ref="oldPswInp"
-            v-model="updatePwd.oldpass"
+            v-model="updatePwd.oldPwd"
             type="password"
             auto-complete="off"
           />
         </el-form-item>
         <el-form-item
           label="新密码"
-          prop="pass"
+          prop="newPwd"
         >
           <el-input
-            v-model="updatePwd.pass"
+            v-model="updatePwd.newPwd"
             type="password"
             auto-complete="off"
           />
         </el-form-item>
         <el-form-item
           label="确认密码"
-          prop="checkPass"
+          prop="checkPwd"
         >
           <el-input
-            v-model="updatePwd.checkPass"
+            v-model="updatePwd.checkPwd"
             type="password"
             auto-complete="off"
           />
@@ -112,6 +112,7 @@
         <el-button
           size="small"
           type="primary"
+          :disabled="submitDisabled"
           @click="handlePwdSubmit"
         >
           确 定
@@ -129,6 +130,9 @@ import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import ErrorLog from '@/components/ErrorLog/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
 import { toggleClass } from '@/utils'
+import '@/assets/custom-theme/index.css'
+import { updatePwd as updatePwdApi } from '@/api/system'
+import { encrypt } from '@/utils/md5'
 
 @Component({
   name: 'Navbar',
@@ -140,33 +144,37 @@ import { toggleClass } from '@/utils'
 })
 export default class extends Vue {
   private passwordFormVisible = false
+  private submitDisabled = false
   private rules = {
-    oldpass: [{
-      required: true, message: '必填', trigger: 'blur'
+    oldPwd: [{
+      required: true, message: '原密码不能为空', trigger: 'blur'
     }],
-    pass: [{
-      required: true, message: '必填', trigger: 'blur'
+    newPwd: [{
+      required: true, message: '新密码不能为空', trigger: 'blur'
     }, {
-      min: 6, message: '最少6位密码', trigger: 'blur'
+      min: 6, message: '密码最少6位', trigger: 'blur'
     }],
-    checkPass: [{
-      validator: (rule: any, value: any, callback: any) => {
+    checkPwd: [{
+      required: true,
+      trigger: 'blur',
+      validator: (rule: string, value: string, callback: Function) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.updatePwd.pass) {
+        } else if (value !== this.updatePwd.newPwd) {
           callback(new Error('两次输入密码不一致'))
         } else {
           callback()
         }
-      },
-      trigger: 'blur'
+      }
     }]
   }
+
   private updatePwd = {
-    oldpass: null,
-    pass: null,
-    checkPass: null
+    oldPwd: null,
+    newPwd: null,
+    checkPwd: null
   }
+
   private formLoading = false
 
   get sidebar() {
@@ -186,6 +194,7 @@ export default class extends Vue {
   }
 
   private async logout() {
+    await this.$confirm('确定退出吗？', '提示').catch(e => e)
     await UserModule.LogOut()
     this.$router.push(`/login?redirect=${this.$route.fullPath}`)
   }
@@ -222,25 +231,21 @@ export default class extends Vue {
 
   private async handlePwdSubmit() {
     await this.validate('form')
-    const oldPsw = this.updatePwd.oldpass
-    const newPsw = this.updatePwd.pass
-    if (oldPsw === newPsw) {
+    const oldPwd = this.updatePwd.oldPwd || ''
+    const newPwd = this.updatePwd.newPwd || ''
+    if (oldPwd === newPwd) {
       this.$message.warning('新密码不能与旧密码一样')
+      return
     }
-    // TODO
-    // const response = await this.$http.post('/adminUser/updatePsw', { oldPsw, newPsw })
-    // if (response.data.code === 0) {
-    //   this.passwordFormVisible = false
-    // } else if (response.data.code === -3) {
-    //   const ref: any = this.$refs['oldPswInp']
-    //   ref.focus()
-    // }
-    // this.$notify({
-    //   title: '成功',
-    //   message: response.data.message,
-    //   type: 'success',
-    //   duration: 2000
-    // })
+    this.submitDisabled = true
+    await updatePwdApi(encrypt(oldPwd), encrypt(newPwd)).then(() => {
+      UserModule.LogOut().then(() => {
+        this.$message.success('密码修改成功，请重新登录！')
+        this.$router.push('/login')
+      })
+    }).catch(_ => {
+      this.submitDisabled = false
+    })
   }
 }
 </script>

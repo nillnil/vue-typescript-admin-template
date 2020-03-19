@@ -36,6 +36,7 @@ export default class extends Vue {
   width: 100%;
   position: relative;
   overflow: hidden;
+  padding: 20px;
 }
 
 .fixed-header+.app-main {

@@ -1,16 +1,10 @@
 import http from '@/utils/http'
 
 const USERS_API = {
-  LOGIN: '/users/login',
-  LOGOUT: '/users/logout',
   INFO: '/users/info'
 }
 
-export const login = (data: any) => http.post(USERS_API.LOGIN, data)
-
-export const logout = () => http.post(USERS_API.LOGOUT)
-
-export const getUserInfo = (data: any) => http.post(USERS_API.INFO, data)
+export const getUserInfo = () => http.get(USERS_API.INFO)
 
 export const getUsers = (params: any) =>
   http({

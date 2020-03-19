@@ -49,7 +49,7 @@ export const constantRoutes: RouteConfig[] = [
   {
     path: '/login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, title: '登录' }
   },
   {
     path: '/auth-redirect',
@@ -74,9 +74,9 @@ export const constantRoutes: RouteConfig[] = [
       {
         path: 'dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
-        name: 'Dashboard',
+        name: '首页',
         meta: {
-          title: 'dashboard',
+          title: '首页',
           icon: 'dashboard',
           affix: true
         }
@@ -97,10 +97,26 @@ export const asyncRoutes: RouteConfig[] = [
       {
         path: 'index',
         component: () => import(/* webpackChunkName: "icons" */ '@/views/icons/index.vue'),
-        name: 'Icons',
+        name: '图标',
         meta: {
-          title: 'icons',
+          title: '图标',
           icon: 'icon',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/vue-common-demo',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "icons" */ '@/views/vue-common-demo/index.vue'),
+        name: 'Vue自定义方法',
+        meta: {
+          title: 'Vue自定义方法',
+          customIcon: 'el-icon-star-on',
           noCache: true
         }
       }

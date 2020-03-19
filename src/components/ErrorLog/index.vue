@@ -27,7 +27,7 @@
           icon="el-icon-delete"
           @click="clearAll"
         >
-          Clear All
+          清除
         </el-button>
       </div>
       <el-table

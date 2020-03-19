@@ -21,7 +21,10 @@ module.exports = {
     'vue/brace-style': 'error',
     'vue/camelcase': 'error',
     'vue/comma-dangle': 'error',
-    'vue/component-name-in-template-casing': 'error',
+    'vue/component-name-in-template-casing': ['error', 'kebab-case', {
+      'registeredComponentsOnly': false,
+      'ignores': []
+    }],
     'vue/eqeqeq': 'error',
     'vue/key-spacing': 'error',
     'vue/match-component-file-name': 'error',

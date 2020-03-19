@@ -23,7 +23,7 @@
   </a>
 </p>
 
-## fock [vue-typescript-admin-template](https://github.com/armour.com/vue-typescript-admin-template)
+## forked from [vue-typescript-admin-template](https://github.com/armour.com/vue-typescript-admin-template)
 
 ## 前序准备
 

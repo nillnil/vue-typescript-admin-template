@@ -12,14 +12,18 @@
           :index="resolvePath(theOnlyOneChild.path)"
           :class="{'submenu-title-noDropdown': isFirstLevel}"
         >
+          <i
+            v-if="theOnlyOneChild.meta.customIcon"
+            :class="theOnlyOneChild.meta.customIcon + ' custom-icon'"
+          />
           <svg-icon
-            v-if="theOnlyOneChild.meta.icon"
+            v-else-if="theOnlyOneChild.meta.icon"
             :name="theOnlyOneChild.meta.icon"
           />
           <span
             v-if="theOnlyOneChild.meta.title"
             slot="title"
-          >{{ $t('route.' + theOnlyOneChild.meta.title) }}</span>
+          >{{ theOnlyOneChild.meta.title }}</span>
         </el-menu-item>
       </sidebar-item-link>
     </template>
@@ -29,8 +33,12 @@
       popper-append-to-body
     >
       <template slot="title">
+        <i
+          v-if="item.meta && item.meta.customIcon"
+          :class="item.meta.customIcon"
+        />
         <svg-icon
-          v-if="item.meta && item.meta.icon"
+          v-else-if="item.meta && item.meta.icon"
           :name="item.meta.icon"
         />
         <span
@@ -100,7 +108,7 @@ export default class extends Vue {
       return null
     }
     if (this.item.children) {
-      for (let child of this.item.children) {
+      for (const child of this.item.children) {
         if (!child.meta || !child.meta.hidden) {
           return child
         }
@@ -179,5 +187,16 @@ export default class extends Vue {
   .svg-icon {
     margin-left: 20px;
   }
+}
+.el-menu-item .custom-icon {
+  width: 1em;
+  height: 1em;
+  margin-left: -4px;
+  margin-right: 8px;
+  vertical-align: -0.15em;
+  font-size: 22px;
+}
+.simple-mode .custom-icon {
+  margin-left: 16px;
 }
 </style>

@@ -28,9 +28,11 @@ class TagsView extends VuexModule implements ITagsViewState {
 
   @Mutation
   private ADD_CACHED_VIEW(view: ITagView) {
-    if (this.cachedViews.includes(view.name)) return
-    if (!view.meta.noCache) {
-      this.cachedViews.push(view.name)
+    if (view.name) {
+      if (this.cachedViews.includes(view.name)) return
+      if (!view.meta.noCache) {
+        this.cachedViews.push(view.name)
+      }
     }
   }
 
@@ -46,8 +48,10 @@ class TagsView extends VuexModule implements ITagsViewState {
 
   @Mutation
   private DEL_CACHED_VIEW(view: ITagView) {
-    const index = this.cachedViews.indexOf(view.name)
-    index > -1 && this.cachedViews.splice(index, 1)
+    if (view.name) {
+      const index = this.cachedViews.indexOf(view.name)
+      index > -1 && this.cachedViews.splice(index, 1)
+    }
   }
 
   @Mutation
@@ -59,7 +63,10 @@ class TagsView extends VuexModule implements ITagsViewState {
 
   @Mutation
   private DEL_OTHERS_CACHED_VIEWS(view: ITagView) {
-    const index = this.cachedViews.indexOf(view.name)
+    let index = -1
+    if (view.name) {
+      index = this.cachedViews.indexOf(view.name)
+    }
     if (index > -1) {
       this.cachedViews = this.cachedViews.slice(index, index + 1)
     } else {

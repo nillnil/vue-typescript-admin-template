@@ -4,7 +4,7 @@
       type="primary"
       @click="handleCreateRole"
     >
-      {{ $t('permission.createRole') }}
+      新增角色
     </el-button>
 
     <el-table
@@ -48,14 +48,14 @@
             size="small"
             @click="handleEdit(scope)"
           >
-            {{ $t('permission.editPermission') }}
+            编辑权限
           </el-button>
           <el-button
             type="danger"
             size="small"
             @click="handleDelete(scope)"
           >
-            {{ $t('permission.delete') }}
+            编辑权限
           </el-button>
         </template>
       </el-table-column>
@@ -101,13 +101,13 @@
           type="danger"
           @click="dialogVisible=false"
         >
-          {{ $t('permission.cancel') }}
+          取消
         </el-button>
         <el-button
           type="primary"
           @click="confirmRole"
         >
-          {{ $t('permission.confirm') }}
+          确定
         </el-button>
       </div>
     </el-dialog>
@@ -182,13 +182,13 @@ export default class extends Vue {
 
   private generateTreeData(routes: RouteConfig[]) {
     const data: RoutesTreeData[] = []
-    for (let route of routes) {
+    for (const route of routes) {
       const tmp: RoutesTreeData = {
         children: [],
         title: '',
         path: ''
       }
-      tmp.title = this.$t(`route.${route.meta.title}`).toString()
+      tmp.title = route.meta.title
       tmp.path = route.path
       if (route.children) {
         tmp.children = this.generateTreeData(route.children)
